@@ -1,10 +1,15 @@
 var metrics = require('datadog-metrics');
 metrics.init({ host: 'localhost:5000', prefix: 'kapi.', apiKey: 'ef41dafd02e827464f3954abf8c700bf' });
 
-var memUsage = process.memoryUsage();
-metrics.gauge('memory.rss', memUsage.rss);
-metrics.gauge('memory.heapTotal', memUsage.heapTotal);
-metrics.gauge('memory.heapUsed', memUsage.heapUsed);
+function collectMemoryStats() {
+    var memUsage = process.memoryUsage();
+    metrics.gauge('memory.rss', memUsage.rss);
+    metrics.gauge('memory.heapTotal', memUsage.heapTotal);
+    metrics.gauge('memory.heapUsed', memUsage.heapUsed);
+    metrics.increment('memory.statsReported');
+}
+
+setInterval(collectMemoryStats, 5000);
 
 exports.incrementPageViewsCount = function(req, res) {
     metrics.increment('memory.pageViews');
