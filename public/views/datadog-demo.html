@@ -1,30 +1,154 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="DataDogDemo">
-<head>
-    <meta charset=UTF-8"/>
-    <title>DATADOG DEMO</title>
-    <link rel="shortcut icon" type="image/ico" href="/img/favicon.ico"/>
-    <link rel="stylesheet" href="/lib/sweetalert2/dist/sweetalert2.css">
-    <link rel="stylesheet" href="/css/datadog-demo.css">
-
-
-    <script src="/lib/angular/angular.js"></script>
-    <script src="/lib/sweetalert2/dist/sweetalert2.min.js"></script>
-
-    <script src="/js/datadog-demo.js"></script>
-    <script src="/js/datadog-demo-service.js"></script>
-
-</head>
-
-<body ng-controller="DataDogDemoController">
-<header>
-    <h1 style="text-align: center;"> WELCOME TO DATADOG DEMO </h1>
-
-    <button ng-click="login()" style="text-align: center">Login</button>
-
-</header>
-
-<div class="center">
-</div>
-</body>
+   <head>
+      <meta charset=UTF-8"/>
+      <title>DATADOG DEMO</title>
+      <link rel="shortcut icon" type="image/ico" href="/img/favicon.ico"/>
+      <link rel="stylesheet" href="/lib/sweetalert2/dist/sweetalert2.css">
+      <link rel="stylesheet" href="/css/datadog-demo.css">
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" >
+      <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+      <script src="/lib/angular/angular.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script src="/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+      <script src="/js/datadog-demo.js"></script>
+      <script src="/js/datadog-demo-service.js"></script>
+   </head>
+   <nav class="navbar navbar-default">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Team MAAT</a>
+         </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+               <li><a href="#">Inventory</a></li>
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li><a href="#">Drive</a></li>
+                     <li><a href="#">Play</a></li>
+                     <li><a href="#">Run</a></li>
+                     <li class="divider"></li>
+                     <li><a href="#">Execute</a></li>
+                  </ul>
+               </li>
+            </ul>
+            <form id="signin" class="navbar-form navbar-right" role="form">
+               <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+               </div>
+               <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+               </div>
+               <button ng-click="login()" type="submit" class="btn btn-primary">Login</button>
+            </form>
+         </div>
+      </div>
+   </nav>
+   <body ng-controller="DataDogDemoController">
+      <h2 class="datadogheader">Welcome to the DataDog Demo</h2>
+      <aside id="sticky-social">
+         <ul>
+            <li><a href="http://www.sce.carleton.ca/courses/sysc-4907/index.html" class="entypo-legacy" target="_blank"><span>Legacy Site</span></a></li>
+            <li><a href="https://www.facebook.com/CarletonUniFED" class="entypo-facebook" target="_blank"><span>Facebook</span></a></li>
+            <li><a href="https://twitter.com/CarletonU_Eng" class="entypo-twitter" target="_blank"><span>Twitter</span></a></li>
+            <li><a href="https://carleton.ca/engineering-design/" class="entypo-web" target="_blank"><span>Web</span></a></li>
+            <li><a href="https://www.github.com/tosinoni/capstonesystem" class="entypo-github" target="_blank"><span>Github</span></a></li>
+            <li><a href="mailto:ug-projects@sce.carleton.ca" class="entypo-mail"><span>Mail</span></a></li>
+            <li><a href="tel:6135202600" class="entypo-call"><span>Call</span></a></li>
+         </ul>
+      </aside>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+               <div class="input-group">
+                  <div class="input-group-btn search-panel">
+                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">Filter by</span> <span class="caret"></span>
+                     </button>
+                     <ul class="dropdown-menu" role="menu">
+                        <li><a href="#sedan">Sedan</a></li>
+                        <li><a href="#suv">SUV</a></li>
+                        <li><a href="#coupe">Coupe</a></li>
+                        <li><a href="#motorcycle">Motorcycle</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#all">All</a></li>
+                     </ul>
+                  </div>
+                  <input type="hidden" name="search_param" value="all" id="search_param">         
+                  <input type="text" class="form-control" name="x" placeholder="Search term...">
+                  <span class="input-group-btn">
+                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                  </span>
+               </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-5">
+            </div>
+            <div class="onoffswitch3 col-md-2">
+               <input type="checkbox" name="onoffswitch3" class="onoffswitch3-checkbox" id="myonoffswitch3" checked>
+               <label class="onoffswitch3-label" for="myonoffswitch3">
+               <span class="onoffswitch3-inner">
+               <span class="onoffswitch3-active"><span class="onoffswitch3-switch">Awake</span></span>
+               <span class="onoffswitch3-inactive"><span class="onoffswitch3-switch">Asleep</span></span>
+               </span>
+               </label>
+            </div>
+            <div class="col-md-5">
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Quick Shortcuts
+                     </h3>
+                  </div>
+                  <div class="panel-body">
+                     <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                           <a href="#" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Apps</a>
+                           <a href="#" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>Bookmarks</a>
+                           <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Reports</a>
+                           <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>Comments</a>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                           <a href="#" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Users</a>
+                           <a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a>
+                           <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> <br/>Purchase</a>
+                           <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-envelope"></span> <br/>Subscribe</a>
+                        </div>
+                     </div>
+                     <a href="/" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-home"></span> Home</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-3">
+         </div>
+      </div>
+   </body>
 </html>
